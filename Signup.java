@@ -21,6 +21,9 @@ class Signup{
     private String userPassword;
     private String userEmail;
 
+    
+    LinkedList userData = new LinkedList();
+
     void setUserID(){
         userID=uuid.toString();
     }
@@ -70,6 +73,14 @@ class Signup{
         return pass;
     }
 
+    boolean checkEmail(){
+        boolean check=false;
+
+        check=userData.checkEmail(getUserEmail());
+
+        return check;
+    }
+
     int fileLastIndex(){
         int index=0;
         try {
@@ -97,6 +108,12 @@ class Signup{
     }
 
     void setFile(int lastIndex){
+
+        if(checkEmail()){
+            System.out.println("\nEmail Already Exist!");
+            return;
+        }
+
         try{
             FileOutputStream fileOut = null;
             FileInputStream fileIn = null;
@@ -127,6 +144,8 @@ class Signup{
 
             fileOut = new FileOutputStream("db/users.xlsx");
             workbook.write(fileOut);
+            workbook.close();
+            System.out.println("\nYou are registerd successfully!");
         }
         catch(Exception e){
             System.out.println(e);
@@ -140,8 +159,8 @@ class Signup{
        
     }
 
-
     void getFile(){
+        boolean afterFirstRow=false;
         try {
             FileInputStream file = new FileInputStream(new File("db/users.xlsx"));
     
@@ -158,23 +177,33 @@ class Signup{
                 Row row = rowIterator.next();
                 //For each row, iterate through all the columns
                 Iterator<Cell> cellIterator = row.cellIterator();
-    
+                String [] arr = new String[4];
                 while (cellIterator.hasNext()) 
                 {
                     Cell cell = cellIterator.next();
-                    //Check the cell type and format accordingly
-                   System.out.println("Index: "+cell.getColumnIndex());
-                   System.out.println("Value: "+cell+"\n");
+                    // System.out.println("Index: "+cell.getColumnIndex()+"\n");
+                    
+                    // System.out.println("Value: "+cell+"\n");
+                    if(cell.toString()!=""){
+                        arr[cell.getColumnIndex()]=cell.toString();
+                    }
 
                 }
-                System.out.println("");
+
+                if(afterFirstRow){
+                    userData.insert_end(arr);
+                }
+                afterFirstRow=true;
             }
             workbook.close();
             file.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
     }
+
+
 }

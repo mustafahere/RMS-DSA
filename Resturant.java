@@ -16,8 +16,8 @@ public class Resturant {
                 obj.setUserName();
                 obj.setUserEmail();
                 obj.setUserPassword();
+                obj.getFile();
                 obj.setFile(obj.fileLastIndex());
-                // obj.getFile();
                 break;
 
             default:
