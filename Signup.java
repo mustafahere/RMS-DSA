@@ -123,7 +123,7 @@ class Signup{
             XSSFSheet sheet = workbook.getSheet("Sheet0");
 
             Object[][] bookData = {
-                {getUserID(),getUserName(),getUserEmail(),getUserPassword()}
+                {getUserID(),getUserName(),getUserEmail(),encodePassword(getUserPassword())}
             };
         
             for (Object[] aBook : bookData) {
