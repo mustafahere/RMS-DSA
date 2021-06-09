@@ -7,17 +7,23 @@ public class Resturant {
         pi.initialScreen();
         int choice=pi.userChoice();
 
+
         switch(choice){
             case 1:
+                Login login = new Login();
+                login.getFile();
+                login.setUserEmail();
+                login.setUserPassword();
+                login.matchCredentials();
                 break;
             case 2:
-                Signup obj = new Signup();
-                obj.setUserID();
-                obj.setUserName();
-                obj.setUserEmail();
-                obj.setUserPassword();
-                obj.getFile();
-                obj.setFile(obj.fileLastIndex());
+                Signup signup = new Signup();
+                signup.setUserID();
+                signup.setUserName();
+                signup.setUserEmail();
+                signup.setUserPassword();
+                signup.getFile();
+                signup.addUser(signup.fileLastIndex());
                 break;
 
             default:

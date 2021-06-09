@@ -34,6 +34,7 @@ public class LinkedList {
         {
             if(new_node.arr[2].equals(userEmail)){
                 check=true;
+                break;
             }
             new_node=new_node.next;
         }
@@ -45,6 +46,33 @@ public class LinkedList {
         }
         return check;
     }
+
+    public boolean checkPassword(String userPassword){
+        boolean check=false;
+
+        Node temp=new Node();
+        temp=head;
+        if(head!=null)
+        {
+          Node new_node=new Node();
+        new_node=head;
+        while(new_node.next!=null)
+        {
+            if(new_node.arr[3].equals(userPassword)){
+                check=true;
+                break;
+            }
+            new_node=new_node.next;
+        }
+
+            if(new_node.arr[3].equals(userPassword)){
+                check=true;
+            }
+
+        }
+        return check;
+    }
+
 }
 
 class Node{

@@ -11,13 +11,72 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;  
 
 class User{
+
+    private String userID;
+    private String userName;
+    private String userPassword;
+    private String userEmail;
     
     LinkedList userData = new LinkedList();
+    UUID uuid = UUID.randomUUID();
 
-    boolean checkEmail(String userEmail){
+    Scanner input = new Scanner(System.in);
+
+    void setUserID(){
+        userID=uuid.toString();
+    }
+
+    void setUserName(){
+        System.out.print("\nEnter your username: ");
+        userName=input.nextLine();
+    }
+
+    void setUserEmail(){
+        System.out.print("\nEnter your user email: ");
+        userEmail=input.nextLine();
+    }
+
+    void setUserPassword(){
+        System.out.print("\nEnter your user password: ");
+        userPassword=input.nextLine();
+        userPassword=encodePassword(userPassword);
+    }
+
+    String getUserID(){
+        return userID;
+    }
+
+    String getUserName(){
+        return userName;
+    }
+
+    String getUserEmail(){
+        return userEmail;
+    }
+
+    String getUserPassword(){
+        userPassword=decodePassword(userPassword);
+        return userPassword;
+    }
+
+    
+    String encodePassword(String pass){
+        Base64.Encoder encoder = Base64.getEncoder(); 
+        pass=encoder.encodeToString(pass.getBytes());
+        return pass;
+    }
+
+    String decodePassword(String pass){
+        Base64.Decoder decoder = Base64.getDecoder(); 
+        pass=new String(decoder.decode(pass));
+        return pass;
+    }
+
+
+    boolean checkEmail(){
         boolean check=false;
 
-        check=userData.checkEmail(userEmail);
+        check=userData.checkEmail(getUserEmail());
 
         return check;
     }
@@ -97,73 +156,30 @@ class User{
 
 }
 
-class Login{
+class Login extends User{
+    void matchCredentials(){
 
+        try{
+            if(userData.checkEmail(getUserEmail()) && userData.checkPassword(encodePassword(getUserPassword()))){
+                System.out.println("Dashboard");
+            }
+            else{
+                System.out.println("Inorrect email or password!");
+            }
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+
+
+    }
 }
 
 class Signup extends User{
 
-    Scanner input = new Scanner(System.in);
-    UUID uuid = UUID.randomUUID();
+    void addUser(int lastIndex){
 
-    private String userID;
-    private String userName;
-    private String userPassword;
-    private String userEmail;
-
-
-    void setUserID(){
-        userID=uuid.toString();
-    }
-
-    void setUserName(){
-        System.out.print("\nEnter your username: ");
-        userName=input.nextLine();
-    }
-
-    void setUserEmail(){
-        System.out.print("\nEnter your user email: ");
-        userEmail=input.nextLine();
-    }
-
-    void setUserPassword(){
-        System.out.print("\nEnter your user password: ");
-        userPassword=input.nextLine();
-        userPassword=encodePassword(userPassword);
-    }
-
-    String getUserID(){
-        return userID;
-    }
-
-    String getUserName(){
-        return userName;
-    }
-
-    String getUserEmail(){
-        return userEmail;
-    }
-
-    String getUserPassword(){
-        userPassword=decodePassword(userPassword);
-        return userPassword;
-    }
-
-    String encodePassword(String pass){
-        Base64.Encoder encoder = Base64.getEncoder(); 
-        pass=encoder.encodeToString(pass.getBytes());
-        return pass;
-    }
-
-    String decodePassword(String pass){
-        Base64.Decoder decoder = Base64.getDecoder(); 
-        pass=new String(decoder.decode(pass));
-        return pass;
-    }
-
-    void setFile(int lastIndex){
-
-        if(checkEmail(getUserEmail())){
+        if(checkEmail()){
             System.out.println("\nEmail Already Exist!");
             return;
         }
