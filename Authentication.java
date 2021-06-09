@@ -10,8 +10,98 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;  
 
+class User{
+    
+    LinkedList userData = new LinkedList();
 
-class Signup{
+    boolean checkEmail(String userEmail){
+        boolean check=false;
+
+        check=userData.checkEmail(userEmail);
+
+        return check;
+    }
+
+    int fileLastIndex(){
+        int index=0;
+        try {
+            FileInputStream file = new FileInputStream(new File("db/users.xlsx"));
+    
+            //Create Workbook instance holding reference to .xlsx file
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+    
+            //Get first/desired sheet from the workbook
+            XSSFSheet sheet = workbook.getSheetAt(0);
+    
+            //Iterate through each rows one by one
+            Iterator<Row> rowIterator = sheet.iterator();
+            while (rowIterator.hasNext())
+            {
+                Row row = rowIterator.next();
+                index++;
+            }
+            workbook.close();
+            file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return index;
+    }
+
+    
+    void getFile(){
+        boolean afterFirstRow=false;
+        try {
+            FileInputStream file = new FileInputStream(new File("db/users.xlsx"));
+    
+            //Create Workbook instance holding reference to .xlsx file
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+    
+            //Get first/desired sheet from the workbook
+            XSSFSheet sheet = workbook.getSheetAt(0);
+    
+            //Iterate through each rows one by one
+            Iterator<Row> rowIterator = sheet.iterator();
+            while (rowIterator.hasNext())
+            {
+                Row row = rowIterator.next();
+                //For each row, iterate through all the columns
+                Iterator<Cell> cellIterator = row.cellIterator();
+                String [] arr = new String[4];
+                while (cellIterator.hasNext()) 
+                {
+                    Cell cell = cellIterator.next();
+                    // System.out.println("Index: "+cell.getColumnIndex()+"\n");
+                    
+                    // System.out.println("Value: "+cell+"\n");
+                    if(cell.toString()!=""){
+                        arr[cell.getColumnIndex()]=cell.toString();
+                    }
+
+                }
+
+                if(afterFirstRow){
+                    userData.insert_end(arr);
+                }
+                afterFirstRow=true;
+            }
+            workbook.close();
+            file.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+}
+
+class Login{
+
+}
+
+class Signup extends User{
 
     Scanner input = new Scanner(System.in);
     UUID uuid = UUID.randomUUID();
@@ -21,8 +111,6 @@ class Signup{
     private String userPassword;
     private String userEmail;
 
-    
-    LinkedList userData = new LinkedList();
 
     void setUserID(){
         userID=uuid.toString();
@@ -73,43 +161,9 @@ class Signup{
         return pass;
     }
 
-    boolean checkEmail(){
-        boolean check=false;
-
-        check=userData.checkEmail(getUserEmail());
-
-        return check;
-    }
-
-    int fileLastIndex(){
-        int index=0;
-        try {
-            FileInputStream file = new FileInputStream(new File("db/users.xlsx"));
-    
-            //Create Workbook instance holding reference to .xlsx file
-            XSSFWorkbook workbook = new XSSFWorkbook(file);
-    
-            //Get first/desired sheet from the workbook
-            XSSFSheet sheet = workbook.getSheetAt(0);
-    
-            //Iterate through each rows one by one
-            Iterator<Row> rowIterator = sheet.iterator();
-            while (rowIterator.hasNext())
-            {
-                Row row = rowIterator.next();
-                index++;
-            }
-            workbook.close();
-            file.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return index;
-    }
-
     void setFile(int lastIndex){
 
-        if(checkEmail()){
+        if(checkEmail(getUserEmail())){
             System.out.println("\nEmail Already Exist!");
             return;
         }
@@ -151,59 +205,6 @@ class Signup{
             System.out.println(e);
         }
 
-       
-         
-
-         
-         
-       
     }
-
-    void getFile(){
-        boolean afterFirstRow=false;
-        try {
-            FileInputStream file = new FileInputStream(new File("db/users.xlsx"));
-    
-            //Create Workbook instance holding reference to .xlsx file
-            XSSFWorkbook workbook = new XSSFWorkbook(file);
-    
-            //Get first/desired sheet from the workbook
-            XSSFSheet sheet = workbook.getSheetAt(0);
-    
-            //Iterate through each rows one by one
-            Iterator<Row> rowIterator = sheet.iterator();
-            while (rowIterator.hasNext())
-            {
-                Row row = rowIterator.next();
-                //For each row, iterate through all the columns
-                Iterator<Cell> cellIterator = row.cellIterator();
-                String [] arr = new String[4];
-                while (cellIterator.hasNext()) 
-                {
-                    Cell cell = cellIterator.next();
-                    // System.out.println("Index: "+cell.getColumnIndex()+"\n");
-                    
-                    // System.out.println("Value: "+cell+"\n");
-                    if(cell.toString()!=""){
-                        arr[cell.getColumnIndex()]=cell.toString();
-                    }
-
-                }
-
-                if(afterFirstRow){
-                    userData.insert_end(arr);
-                }
-                afterFirstRow=true;
-            }
-            workbook.close();
-            file.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
 
 }
