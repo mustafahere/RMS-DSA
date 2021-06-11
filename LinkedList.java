@@ -20,7 +20,6 @@ public class LinkedList {
         }
     }
 
-
     public boolean checkEmail(String userEmail){
         boolean check=false;
 
@@ -46,10 +45,9 @@ public class LinkedList {
         }
         return check;
     }
-
-    public boolean checkPassword(String userPassword){
+    
+    public boolean checkCredentials(String userEmail,String userPassword){
         boolean check=false;
-
         Node temp=new Node();
         temp=head;
         if(head!=null)
@@ -58,20 +56,21 @@ public class LinkedList {
         new_node=head;
         while(new_node.next!=null)
         {
-            if(new_node.arr[3].equals(userPassword)){
+            if(new_node.arr[2].equals(userEmail) && new_node.arr[3].equals(userPassword)){
                 check=true;
                 break;
             }
             new_node=new_node.next;
         }
 
-            if(new_node.arr[3].equals(userPassword)){
+            if(new_node.arr[2].equals(userEmail) && new_node.arr[3].equals(userPassword)){
                 check=true;
             }
 
         }
         return check;
     }
+
 
 }
 

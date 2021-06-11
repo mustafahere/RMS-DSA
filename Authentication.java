@@ -39,7 +39,6 @@ class User{
     void setUserPassword(){
         System.out.print("\nEnter your user password: ");
         userPassword=input.nextLine();
-        userPassword=encodePassword(userPassword);
     }
 
     String getUserID(){
@@ -55,7 +54,6 @@ class User{
     }
 
     String getUserPassword(){
-        userPassword=decodePassword(userPassword);
         return userPassword;
     }
 
@@ -157,31 +155,40 @@ class User{
 }
 
 class Login extends User{
-    void matchCredentials(){
-
+    boolean matchCredentials(){
+        boolean match=false;
         try{
-            if(userData.checkEmail(getUserEmail()) && userData.checkPassword(encodePassword(getUserPassword()))){
-                System.out.println("Dashboard");
+
+            boolean checkCredentials=userData.checkCredentials(getUserEmail(),encodePassword(getUserPassword()));
+
+            if(checkCredentials){
+                match=true;
             }
             else{
-                System.out.println("Inorrect email or password!");
+                match=false;
             }
         }
         catch(Exception e){
             System.out.println(e);
         }
 
-
+        return match;
     }
 }
 
 class Signup extends User{
 
-    void addUser(int lastIndex){
+    boolean addUser(int lastIndex){
+        boolean success=false;
 
         if(checkEmail()){
             System.out.println("\nEmail Already Exist!");
-            return;
+            return success;
+        }
+
+        if(!validateFields()){
+            System.out.println("\nPlease insert the fields properly!");
+            return success;
         }
 
         try{
@@ -215,12 +222,37 @@ class Signup extends User{
             fileOut = new FileOutputStream("db/users.xlsx");
             workbook.write(fileOut);
             workbook.close();
-            System.out.println("\nYou are registerd successfully!");
+            success=true;
         }
         catch(Exception e){
             System.out.println(e);
         }
 
+        return success;
+
+    }
+
+    boolean validateFields(){
+        boolean validate=false;
+        String emailRegex="^(.+)@(.+)$";
+
+        if(getUserPassword()!="" && getUserName()!="" && getUserEmail()!=""){
+            
+            if(getUserEmail().matches(emailRegex)){
+                validate=true;
+            }
+            else{
+                System.out.println("\nEmail pattern is incorrect!");
+                validate=false;
+            }
+            
+            
+        }
+        else{
+            validate=false;
+        }
+
+        return validate;
     }
 
 }
