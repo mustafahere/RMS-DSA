@@ -17,7 +17,7 @@ public class Resturant {
         else if(choice==2){
             pi.clearScreen();
             pi.Header();
-            String [] homeOptions2={"Login","Exit"};
+            String [] homeOptions2={"Login","SignUp","Exit"};
 
             pi.options(homeOptions2);
             int choice2=pi.userChoice();
@@ -29,20 +29,20 @@ public class Resturant {
                         pi.dashboardFunctionality();
                     }
                     break;
+                
                 case 2:
+                    if(pi.signUpFunctionality()){
+                        pi.clearScreen();
+                        if(pi.loginFunctionality()){
+                            pi.dashboardFunctionality();
+                        }
+                    }
+                    break;
+                case 3:
                     pi.clearScreen();
                     String [] dummy={""};
                     main(dummy);
-                break;
-                // case 2:
-                //     if(pi.signUpFunctionality()){
-                //         pi.clearScreen();
-                //         if(pi.loginFunctionality()){
-                //             pi.dashboardFunctionality();
-                //         }
-                //     }
-                //     break;
-
+                    break;
                 default:
                     System.out.println("Invalid choice!");
                     break;
@@ -251,7 +251,7 @@ class projectInterface{
         Header();
         dashboard();
 
-        String [] homeOptions={"Menu","Orders","Profits","Add another admin","Logout"};
+        String [] homeOptions={"Menu","Orders","Profits","Logout"};
 
         options(homeOptions);
 
@@ -272,8 +272,6 @@ class projectInterface{
                 break;
 
             case 4:
-                break;
-            case 5:
                 clearScreen();
                 String [] dummy={""};
                 Resturant res = new Resturant();

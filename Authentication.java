@@ -82,7 +82,7 @@ class User{
     int fileLastIndex(){
         int index=0;
         try {
-            FileInputStream file = new FileInputStream(new File("db/users.xlsx"));
+            FileInputStream file = new FileInputStream(new File("db/admins.xlsx"));
     
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -109,7 +109,7 @@ class User{
     void getFile(){
         boolean afterFirstRow=false;
         try {
-            FileInputStream file = new FileInputStream(new File("db/users.xlsx"));
+            FileInputStream file = new FileInputStream(new File("db/admins.xlsx"));
     
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -195,7 +195,7 @@ class Signup extends User{
             FileOutputStream fileOut = null;
             FileInputStream fileIn = null;
 
-            fileIn = new FileInputStream("db/users.xlsx");
+            fileIn = new FileInputStream("db/admins.xlsx");
             XSSFWorkbook workbook = new XSSFWorkbook(fileIn);
             XSSFSheet sheet = workbook.getSheet("Sheet0");
 
@@ -219,7 +219,7 @@ class Signup extends User{
                 
             }
 
-            fileOut = new FileOutputStream("db/users.xlsx");
+            fileOut = new FileOutputStream("db/admins.xlsx");
             workbook.write(fileOut);
             workbook.close();
             success=true;
