@@ -292,13 +292,24 @@ class projectInterface{
         System.out.println("\t\tMENU");
         System.out.println("---------------------------------------\n");
 
-        String [] homeOptions={"Add Menu","Update Menu","Delete Menu","Search Menu","Exit"};
+        String [] homeOptions={"Add Menu","Update Menu","Delete Menu","View Menu","Exit"};
 
         options(homeOptions);
 
         int choice = userChoice();
 
+        Menu menu = new Menu();
+
         switch (choice) {
+
+            case 1:
+                menu.setMenuID();
+                menu.setMenuName();
+                menu.setMenuPrice();
+                menu.setMenuQuantity();
+                menu.addMenu(menu.fileLastIndex());
+                break;
+
             case 5:
                 dashboardFunctionality();
                 break;
