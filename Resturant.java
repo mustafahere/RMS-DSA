@@ -110,6 +110,7 @@ class projectInterface{
     boolean loginFunctionality(){
         Login login = new Login();
         login.getFile();
+        clearScreen();
         boolean success=false;
         while(success==false){
             login();
@@ -303,13 +304,119 @@ class projectInterface{
         switch (choice) {
 
             case 1:
-                menu.setMenuID();
-                menu.setMenuName();
-                menu.setMenuPrice();
-                menu.setMenuQuantity();
-                menu.addMenu(menu.fileLastIndex());
+                boolean continueLoop=true;
+                while(continueLoop==true){
+                    menu.setMenuID();
+                    menu.setMenuName();
+                    menu.setMenuPrice();
+                    menu.setMenuQuantity();
+                    menu.getFile();
+                    if(menu.addMenu(menu.fileLastIndex())){
+                        System.out.println("\nMenu added successfully!");
+                        System.out.println("\nDo you want to continue or go back?");
+                        System.out.print("\nEnter your choice: ");
+                        int choice2=userChoice();
+
+                        if(choice2==1){
+                            continueLoop=true;
+                        }
+                        else{
+                            continueLoop=false;
+                        }
+
+                    } 
+                
+                }
+                menuOptions();
                 break;
 
+
+            case 2:
+                boolean continueLoop2=true;
+                clearScreen();
+                Header();
+                System.out.println("\n-------------------------------------");
+                System.out.println("\t\tEdit MENU");
+                System.out.println("---------------------------------------\n");
+
+                while(continueLoop2==true){
+                   
+                    menu.setMenuName();
+                    menu.getFile();
+                    if(menu.editMenu()){
+                        System.out.println("\nDo you want to continue or go back?");
+                        System.out.print("\nEnter your choice: ");
+                        int choice2=userChoice();
+
+                        if(choice2==1){
+                            continueLoop2=true;
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                    else{
+                        continueLoop2=true;
+                    }
+
+                }
+
+                menuOptions();
+
+                break;
+            case 3:
+                boolean continueLoop3=true;
+                clearScreen();
+                Header();
+                System.out.println("\n-------------------------------------");
+                System.out.println("\t\tDelete MENU");
+                System.out.println("---------------------------------------\n");
+                while(continueLoop3==true){
+                   
+                    menu.setMenuName();
+                    menu.getFile();
+                    if(menu.deleteMenu()){
+                        System.out.println("\nDo you want to continue or go back?");
+                        System.out.print("\nEnter your choice: ");
+                        int choice2=userChoice();
+
+                        if(choice2==1){
+                            continueLoop3=true;
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                    else{
+                        continueLoop3=true;
+                    }
+
+                }
+
+                menuOptions();
+                break;   
+
+            case 4:
+                clearScreen();
+                Header();
+                System.out.println("\n-------------------------------------");
+                System.out.println("\t\tVIEW MENU");
+                System.out.println("---------------------------------------\n");
+                menu.viewMenu();
+
+                System.out.println("\nDo you want to go back?");
+                System.out.print("\nEnter your choice: ");
+                int choice2=userChoice();
+
+                if(choice2==1){
+                    menuOptions();
+                }
+                else{
+                    menuOptions();
+                }
+
+                break;
+            
             case 5:
                 dashboardFunctionality();
                 break;
