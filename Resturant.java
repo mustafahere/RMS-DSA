@@ -201,7 +201,26 @@ class projectInterface{
         
         switch (choice) {
             case 1:
-                
+                Menu menu = new Menu();
+                clearScreen();
+                Header();
+                System.out.println("\n-------------------------------------");
+                System.out.println("\t\tVIEW MENU");
+                System.out.println("---------------------------------------\n");
+                menu.viewMenu();
+
+                System.out.println("\nDo you want to go back?");
+                System.out.print("\nEnter your choice: ");
+                int choice2=userChoice();
+
+                if(choice2==1){
+                    customerMenuOptions();
+                }
+                else{
+                    customerMenuOptions();
+                }
+
+
                 break;
             case 2:
                 customerFunctionality();
