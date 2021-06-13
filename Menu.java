@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.Base64;
 import java.util.Iterator;
 import java.io.File;
 import java.io.FileInputStream;

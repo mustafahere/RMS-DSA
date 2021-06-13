@@ -4,6 +4,7 @@ public class Resturant {
 
     public static void main(String[] args) {
         projectInterface pi = new projectInterface();
+        pi.clearScreen();
         pi.Header();
 
         String [] homeOptions={"Are you a customer?","Are you a admin?"};
@@ -88,7 +89,6 @@ class projectInterface{
 
         return choice;
     }
-
 
     void signUp(){
         System.out.println("\n---------------------------------------");
@@ -247,8 +247,41 @@ class projectInterface{
 
         switch (choice) {
             case 1:
+                clearScreen();
+                Header();
+                System.out.println("\n-------------------------------------");
+                System.out.println("\t\tPlace Order");
+                System.out.println("---------------------------------------\n");
+                boolean continueLoop=true;
+                Order order = new Order();
+                while(continueLoop==true){
+                    order.setID();
+                    order.setName();
+                    order.setEmail();
+                    order.setAddress();
+                    order.setMenuID();
+                    order.setQuantity();
+                    order.setDate();
+                    order.setStatus();
+                    order.getFile();
+                    if(order.placeOrder(order.fileLastIndex())){
+                        System.out.println("\nDo you want to continue or go back?");
+                        System.out.print("\nEnter your choice: ");
+                        int choice2=userChoice();
+
+                        if(choice2==1){
+                            continueLoop=true;
+                        }
+                        else{
+                            continueLoop=false;
+                        }
+
+                    } 
                 
-                break;
+                }
+                customerOrderOptions();
+            break;
+
             case 2:
                 customerFunctionality();
                 break;
@@ -486,6 +519,53 @@ class projectInterface{
         int choice = userChoice();
 
         switch (choice) {
+
+            case 1:
+
+                clearScreen();
+                Header();
+                System.out.println("\n-------------------------------------");
+                System.out.println("\t\tVIEW ORDERS");
+                System.out.println("---------------------------------------\n");
+                Order order = new Order();
+                order.getFile();
+                order.viewOrders();
+
+                System.out.println("\nDo you want to go back?");
+                System.out.print("\nEnter your choice: ");
+                int choice2=userChoice();
+
+                if(choice2==1){
+                    orderOptions();
+                }
+                else{
+                    orderOptions();
+                }
+                break;
+
+            case 2:
+                clearScreen();
+                Header();
+                System.out.println("\n-------------------------------------");
+                System.out.println("\t\tUPDATE ORDERS");
+                System.out.println("---------------------------------------\n");
+                Order updateOrder = new Order();
+
+                updateOrder.setOrderId();
+                updateOrder.editOrder();
+
+                System.out.println("\nDo you want to go back?");
+                System.out.print("\nEnter your choice: ");
+                int choice3=userChoice();
+
+                if(choice3==1){
+                    orderOptions();
+                }
+                else{
+                    orderOptions();
+                }
+                break;
+
             case 3:
                 dashboardFunctionality();
                 break;
