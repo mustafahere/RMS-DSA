@@ -494,6 +494,30 @@ class projectInterface{
         int choice = userChoice();
 
         switch (choice) {
+
+            case 1:
+                clearScreen();
+                Header();
+                System.out.println("\n-------------------------------------");
+                System.out.println("\t\tVIEW PROFIT");
+                System.out.println("---------------------------------------\n");
+
+                Profits profit = new Profits();
+                profit.viewProfits();
+
+                System.out.println("\nDo you want to go back?");
+                System.out.print("\nEnter your choice: ");
+                int choice2=userChoice();
+
+                if(choice2==1){
+                    profitOptions();
+                }
+                else{
+                    profitOptions();
+                }
+
+                break;
+
             case 2:
                 dashboardFunctionality();
                 break;

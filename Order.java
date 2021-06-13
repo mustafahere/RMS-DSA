@@ -129,7 +129,7 @@ class Order {
     }
 
     void setDate(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
         LocalDateTime now = LocalDateTime.now();  
         Date=dtf.format(now);
     }
@@ -244,23 +244,23 @@ class Order {
                 while (cellIterator.hasNext()) 
                 {
                     Cell cell = cellIterator.next();
-                    eachRow[cell.getColumnIndex()]=cell.toString();
-
-                    if(cell.getColumnIndex()==7){
-                        if(eachRow[7].equals("Pending")){
-                            arr[0]=eachRow[0];
-                            arr[1]=eachRow[1];
-                            arr[2]=eachRow[2];
-                            arr[3]=eachRow[3];
-                            arr[4]=eachRow[4];
-                            arr[5]=eachRow[5];
-                            arr[6]=eachRow[6];
-                            arr[7]=eachRow[7];
-                        }
-                        else{
-                            dontadd=true;
-                        }
-                    }
+                    arr[cell.getColumnIndex()]=cell.toString();
+                    
+                    // if(cell.getColumnIndex()==7){
+                    //     if(eachRow[7].equals("Pending")){
+                    //         arr[0]=eachRow[0];
+                    //         arr[1]=eachRow[1];
+                    //         arr[2]=eachRow[2];
+                    //         arr[3]=eachRow[3];
+                    //         arr[4]=eachRow[4];
+                    //         arr[5]=eachRow[5];
+                    //         arr[6]=eachRow[6];
+                    //         arr[7]=eachRow[7];
+                    //     }
+                    //     else{
+                    //         dontadd=true;
+                    //     }
+                    // }
                 }
 
                 if(afterFirstRow && !dontadd){
@@ -345,6 +345,24 @@ class Order {
             while(new_node.next!=null)
             {
                 orderNum++;
+                if(new_node.key[7].equals("Pending")){
+                    System.out.println("\n-----------------ORDER "+orderNum+"----------------------");
+                    System.out.println("\nCustomer Name: "+new_node.key[1]);
+                    System.out.println("\nCustomer Email: "+new_node.key[2]);
+                    System.out.println("\nCustomer Address: "+new_node.key[3]);
+                    String data [] = menuData.getRowById(new_node.key[4]);
+                    System.out.println("\nProduct Name: "+data[1]);
+                    System.out.println("\nQuantity: "+new_node.key[5]+" x "+data[3]);
+                    System.out.println("\nTotal Amount: "+"PKR "+(Integer.parseInt(data[2]) * Integer.parseInt(new_node.key[5])));
+                    System.out.println("\nOrder Date: "+new_node.key[6]);
+                    System.out.println("---------------------------------------\n");
+                }
+
+
+                new_node=new_node.next;
+            }
+            orderNum++;
+            if(new_node.key[7].equals("Pending")){
                 System.out.println("\n-----------------ORDER "+orderNum+"----------------------");
                 System.out.println("\nCustomer Name: "+new_node.key[1]);
                 System.out.println("\nCustomer Email: "+new_node.key[2]);
@@ -355,20 +373,7 @@ class Order {
                 System.out.println("\nTotal Amount: "+"PKR "+(Integer.parseInt(data[2]) * Integer.parseInt(new_node.key[5])));
                 System.out.println("\nOrder Date: "+new_node.key[6]);
                 System.out.println("---------------------------------------\n");
-
-                new_node=new_node.next;
             }
-            orderNum++;
-            System.out.println("\n-----------------ORDER "+orderNum+"----------------------");
-            System.out.println("\nCustomer Name: "+new_node.key[1]);
-            System.out.println("\nCustomer Email: "+new_node.key[2]);
-            System.out.println("\nCustomer Address: "+new_node.key[3]);
-            String data [] = menuData.getRowById(new_node.key[4]);
-            System.out.println("\nProduct Name: "+data[1]);
-            System.out.println("\nQuantity: "+new_node.key[5]+" x "+data[3]);
-            System.out.println("\nTotal Amount: "+"PKR "+(Integer.parseInt(data[2]) * Integer.parseInt(new_node.key[5])));
-            System.out.println("\nOrder Date: "+new_node.key[6]);
-            System.out.println("---------------------------------------\n");
         }
     }
 

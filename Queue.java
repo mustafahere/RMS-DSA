@@ -28,11 +28,15 @@ class Queue {
 
         if (this.rear == null) {
             this.front = this.rear = temp;
-            size++;
+            if(key[7].equals("Pending")){
+                size++;
+            }
             return;
         }
 
-        size++;
+        if(key[7].equals("Pending")){
+            size++;
+        }
         if(size<11){
             this.rear.next = temp;
             this.rear = temp;
